@@ -1,0 +1,25 @@
+{
+  "name": "ui-library",
+  "version": "1.0.0",
+  "description": "Корпоративная библиотека UI-компонентов",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "rollup -c",
+    "lint": "eslint src --ext .ts,.tsx",
+    "storybook": "start-storybook -p 6006",
+    "release": "semantic-release"
+  },
+  "dependencies": {
+    "classnames": "^2.5.1",
+    "react": "^18.0.0"
+  },
+  "devDependencies": {
+    "@types/css-modules": "^1.0.5",
+    "eslint": "^8.0.0",
+    "rollup": "^3.0.0",
+    "semantic-release": "^21.0.0",
+    "typescript": "^5.0.0"
+  }
+}
