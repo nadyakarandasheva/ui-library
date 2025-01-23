@@ -1,10 +1,13 @@
 {
-  "name": "ui-library",
+  "name": "@nadyakarandasheva/ui-library",
   "version": "1.0.0",
   "description": "Корпоративная библиотека UI-компонентов",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "scripts": {
     "build": "rollup -c",
     "lint": "eslint src --ext .ts,.tsx",
