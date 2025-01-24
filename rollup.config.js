@@ -1,6 +1,7 @@
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
+import postcss from 'rollup-plugin-postcss';
 
 export default {
   input: 'src/index.ts',
@@ -8,6 +9,6 @@ export default {
     { file: 'dist/index.js', format: 'cjs' },
     { file: 'dist/index.esm.js', format: 'esm' }
   ],
-  plugins: [resolve(), commonjs(), typescript()],
+  plugins: [resolve(), commonjs(), typescript(), postcss()],
   external: ['react']
 };
