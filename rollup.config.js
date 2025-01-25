@@ -1,30 +1,32 @@
-import resolve from "@rollup/plugin-node-resolve";
-import commonjs from "@rollup/plugin-commonjs";
-import typescript from "@rollup/plugin-typescript";
-import peerDepsExternal from "rollup-plugin-peer-deps-external";
-import postcss from "rollup-plugin-postcss";
+import typescript from 'rollup-plugin-typescript2';
+import dts from 'rollup-plugin-dts';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
 
-export default {
-  input: "src/index.ts",
-  output: [
-    {
-      file: "dist/index.js",
-      format: "cjs",
-      sourcemap: true,
-      exports: "named",
-    },
-    {
-      file: "dist/index.esm.js",
-      format: "esm",
-      sourcemap: true,
-    },
-  ],
-  plugins: [
-    peerDepsExternal(),
-    resolve({ extensions: [".js", ".ts", ".tsx"] }), // <-- Указываем, какие файлы обрабатывать
-    commonjs(),
-    typescript({ tsconfig: "./tsconfig.json" }),
-    postcss(),
-  ],
-  external: ["react", "react-dom"],
-};
+export default [
+  {
+    input: 'src/index.ts',
+    output: [
+      {
+        file: 'dist/index.cjs.js',
+        format: 'cjs',
+        exports: 'named',
+      },
+      {
+        file: 'dist/index.esm.js',
+        format: 'esm',
+      }
+    ],
+    external: ['react', 'react/jsx-runtime'], // Исключаем React и JSX-runtime
+    plugins: [
+      nodeResolve(),
+      commonjs(), // Добавляем поддержку CommonJS
+      typescript(),
+    ],
+  },
+  {
+    input: 'src/index.ts',
+    output: { file: 'dist/index.d.ts', format: 'es' },
+    plugins: [dts()],
+  }
+];

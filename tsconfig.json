@@ -7,7 +7,7 @@
     "emitDeclarationOnly": false,
     "jsx": "react-jsx",
     "allowJs": true,
-    "module": "ESNext",
+    "module": "ES6",
     "moduleResolution": "Node",
     "esModuleInterop": true,
     "skipLibCheck": true,

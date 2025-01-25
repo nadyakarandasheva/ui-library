@@ -5,8 +5,6 @@ interface ButtonProps {
   onClick: () => void;
 };
 
-const Button: React.FC<ButtonProps> = ({ label, onClick }) => {
+export const Button: React.FC<ButtonProps> = ({ label, onClick }) => {
   return <button style={{ background: "#d119a9" }} onClick={onClick}>{label}</button>;
-};
-
-export default Button;
+}; 
