@@ -1,12 +1,19 @@
 {
   "compilerOptions": {
-    "jsx": "react",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
     "outDir": "dist",
+    "rootDir": "src",
     "declaration": true,
     "declarationDir": "dist",
-    "emitDeclarationOnly": false
-  }
+    "emitDeclarationOnly": false,
+    "jsx": "react-jsx",
+    "allowJs": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "strict": true
+  },
+  "include": [
+    "src"
+  ]
 }

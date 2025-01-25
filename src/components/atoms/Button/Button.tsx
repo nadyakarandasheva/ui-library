@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 
-import styles from './Button.module.css';
-
-interface IButtonProps {
+interface ButtonProps {
   label: string;
-  onClick?: () => void
-}
-
-export const Button: React.FC<IButtonProps> = ({ label, onClick }) => {
-  return <Button className={styles.buttonPrimary} onClick={onClick}>{label}</Button>;
+  onClick: () => void;
 };
+
+const Button: React.FC<ButtonProps> = ({ label, onClick }) => {
+  return <button style={{ background: "#dad" }} onClick={onClick}>{label}</button>;
+};
+
+export default Button;

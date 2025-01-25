@@ -1,8 +1,8 @@
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import typescript from "@rollup/plugin-typescript";
+import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import postcss from "rollup-plugin-postcss";
-import alias from "@rollup/plugin-alias";
 
 export default {
   input: "src/index.ts",
@@ -11,6 +11,7 @@ export default {
       file: "dist/index.js",
       format: "cjs",
       sourcemap: true,
+      exports: "named",
     },
     {
       file: "dist/index.esm.js",
@@ -19,10 +20,8 @@ export default {
     },
   ],
   plugins: [
-    alias({
-      entries: [{ find: "@", replacement: "src" }],
-    }),
-    resolve(),
+    peerDepsExternal(),
+    resolve({ extensions: [".js", ".ts", ".tsx"] }), // <-- Указываем, какие файлы обрабатывать
     commonjs(),
     typescript({ tsconfig: "./tsconfig.json" }),
     postcss(),
