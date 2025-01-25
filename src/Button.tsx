@@ -6,5 +6,5 @@ interface ButtonProps {
 };
 
 export const Button: React.FC<ButtonProps> = ({ label, onClick }) => {
-  return <button style={{ background: "#d119a9" }} onClick={onClick}>{label}</button>;
+  return <button style={{ background: "#fff", padding: '10px 8px', border: '1px solid #000', borderRadius: '25px' }} onClick={onClick}>{label}</button>;
 }; 
