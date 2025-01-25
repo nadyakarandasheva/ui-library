@@ -6,6 +6,13 @@
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
+  "files": [
+    "dist"
+  ],
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -22,6 +29,7 @@
     "release": "semantic-release"
   },
   "dependencies": {
+    "@rollup/plugin-alias": "^5.1.1",
     "@rollup/plugin-commonjs": "^28.0.2",
     "@rollup/plugin-node-resolve": "^16.0.0",
     "@rollup/plugin-typescript": "^12.1.2",
