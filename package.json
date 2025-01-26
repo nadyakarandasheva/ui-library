@@ -1,6 +1,6 @@
 {
   "name": "@nadyakarandasheva/ui-library",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "description": "Корпоративная библиотека UI-компонентов",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
