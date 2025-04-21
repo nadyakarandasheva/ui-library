@@ -3,11 +3,9 @@ name: CI Pipeline
 on:
   push:
     branches:
-      - main
       - develop
   pull_request:
     branches:
-      - main
       - develop
 
 jobs:
@@ -28,6 +26,17 @@ jobs:
 
       - name: Build Library
         run: npm run build
+
+      - name: Build Storybook
+        run: npm run build-storybook
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./storybook-static
+          publish_branch: gh-pages
+          keep_files: true
 
       - name: Publish Package
         run: npm publish
