@@ -27,6 +27,12 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Run Linter
+        run: npm run lint
+
+      - name: Run Tests
+        run: npm run test
+
       - name: Build Library
         run: npm run build
 
@@ -44,3 +50,7 @@ jobs:
 
       - name: Publish Package
         run: npm publish
+
+
+
+        
