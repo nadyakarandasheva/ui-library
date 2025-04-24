@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import './button.css';
+import '../Button/button.css';
 
 export interface ButtonProps {
   primary?: boolean;

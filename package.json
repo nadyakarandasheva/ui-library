@@ -60,7 +60,7 @@
     "semantic-release": "^21.0.0",
     "storybook": "^8.6.12",
     "tslib": "^2.8.1",
-    "typescript": "*",
+    "typescript": "^5.0.0",
     "typescript-eslint": "^8.31.0",
     "react-scripts": "^5.0.1"
   },
@@ -87,7 +87,7 @@
     "storybook": "storybook dev -p 6006",
     "release": "semantic-release",
     "build-storybook": "storybook build",
-    "test": "react-scripts test",
+    "test": "react-scripts test -all",
     "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,json,css,md}'"
   }
 }
