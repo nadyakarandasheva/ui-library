@@ -1,29 +1,37 @@
 import typescript from 'rollup-plugin-typescript2';
 import fg from 'fast-glob';
+import fs from 'fs';
+import path from 'path';
 import dts from 'rollup-plugin-dts';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 
+// Найдём все index.ts[x] файлы
 const inputFiles = fg.sync('src/**/index.{ts,tsx}');
+
+// Создадим временный файл с реэкспортами
+const entryFile = 'src/__build-entry.ts';
+const imports = inputFiles
+  .map((file, i) => {
+    const importPath = './' + path.relative('src', file).replace(/\\/g, '/').replace(/\.(ts|tsx)$/, '');
+    return `export * from '${importPath}';`;
+  })
+  .join('\n');
+
+fs.writeFileSync(entryFile, imports);
 
 export default [
   {
-    input: inputFiles,
+    input: entryFile,
     output: [
       {
-        dir: 'dist',
+        file: 'dist/index.cjs.js',
         format: 'cjs',
         exports: 'named',
-        entryFileNames: '[name].cjs.js',
-        preserveModules: true,
-        preserveModulesRoot: 'src'
       },
       {
-        dir: 'dists',
+        file: 'dist/index.esm.js',
         format: 'esm',
-        entryFileNames: '[name].esm.js',
-        preserveModules: true,
-        preserveModulesRoot: 'src'
       }
     ],
     external: ['react', 'react/jsx-runtime'], // Исключаем React и JSX-runtime
@@ -34,10 +42,10 @@ export default [
     ],
   },
   {
-    input: inputFiles,
+    input: entryFile,
     output: {
-      dir: 'dist', format: 'es', preserveModules: true,
-      preserveModulesRoot: 'src'
+      file: 'dist/index.d.ts',
+      format: 'es',
     },
     plugins: [dts()],
   }
