@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
-import { Button } from '../atoms/Button'; // путь до компонента
+import { Button } from './Button'; // путь до компонента
 
 describe('Button component', () => {
   it('renders with correct label', () => {
