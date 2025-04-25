@@ -23,6 +23,7 @@
     "classnames": "^2.5.1",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "react-hook-form": "^7.56.1",
     "rollup-plugin-dts": "^6.1.1",
     "rollup-plugin-typescript2": "^0.36.0"
   },
@@ -31,6 +32,7 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "@lhci/cli": "^0.14.0",
     "@rollup/plugin-commonjs": "^28.0.2",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.0",
@@ -84,11 +86,12 @@
   },
   "scripts": {
     "build": "rollup -c",
-    "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
+    "lint": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\"",
     "storybook": "storybook dev -p 6006",
     "release": "semantic-release",
     "build-storybook": "storybook build",
     "test": "react-scripts test -all",
-    "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,json,css,md}'"
+    "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,json,css,md}'",
+    "lhci": "lhci autorun"
   }
 }

@@ -1,1 +1,1 @@
-export * from './components/atoms/Button/index';
+export * from './components/common/atoms/Button/index';

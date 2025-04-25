@@ -38,6 +38,9 @@ jobs:
       - name: Build Storybook
         run: npm run build-storybook
 
+      - name: Run Lighthouse CI
+        run: npm run lhci
+
       - name: Deploy Storybook to GitHub Pages
         if: github.ref == 'refs/heads/develop'
         uses: peaceiris/actions-gh-pages@v3
