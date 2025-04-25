@@ -5,6 +5,7 @@ import path from 'path';
 import dts from 'rollup-plugin-dts';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
+import postcss from 'rollup-plugin-postcss'; // Добавляем плагин для CSS
 
 // Найдём все index.ts[x] файлы
 const inputFiles = fg.sync('src/**/index.{ts,tsx}');
@@ -39,6 +40,11 @@ export default [
       nodeResolve(),
       commonjs(), // Добавляем поддержку CommonJS
       typescript(),
+      postcss({
+        modules: true, // Включаем поддержку CSS модулей
+        extract: true, // Вы можете изменить на false, если хотите инлайнить CSS в JS
+        minimize: true, // Минимизируем CSS
+      }),
     ],
   },
   {
