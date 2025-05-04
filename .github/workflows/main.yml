@@ -14,7 +14,7 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
-    timeout-minutes: 30  # Увеличение тайм-аута на 30 минут для всего job
+    timeout-minutes: 30 
 
     steps:
       - name: Checkout Repository
@@ -78,8 +78,7 @@ jobs:
 
   storybook:
     runs-on: ubuntu-latest
-    timeout-minutes: 30  # Увеличение тайм-аута для деплоя
-
+    timeout-minutes: 30 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -103,4 +102,4 @@ jobs:
           publish_dir: ./storybook-static
           publish_branch: gh-pages
           keep_files: true
-        timeout-minutes: 20  # Тайм-аут для деплоя Storybook
+        timeout-minutes: 20
