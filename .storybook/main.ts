@@ -25,14 +25,6 @@ const config: StorybookConfig = {
     // Разрешаем импорты .ts и .tsx файлов
     config.resolve?.extensions?.push('.ts', '.tsx');
 
-    // Чтобы можно было импортировать из packages
-    config.resolve.modules = [
-      ...(config.resolve.modules || []),
-      // Добавляем абсолютный путь к папке packages
-      require('path').resolve(__dirname, '../packages'),
-      'node_modules',
-    ];
-
     return config;
   }
 };

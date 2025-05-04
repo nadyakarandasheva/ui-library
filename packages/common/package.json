@@ -3,14 +3,14 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "scripts": {
-    "build": "rollup -c",
-    "lint": "eslint 'src/**/*.{ts,tsx}'",
-    "test": "jest"
-  },
   "files": [
     "dist"
   ],
+  "scripts": {
+    "build": "rollup -c",
+    "lint": "eslint 'src/**/*.{ts,tsx}'",
+    "test": "react-scripts test -all"
+  },
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
@@ -20,7 +20,15 @@
     "react-dom": "^18.0.0"
   },
   "devDependencies": {
-    "typescript": "^5.0.0"
+    "eslint": "^8.57.0",
+    "jest": "^29.7.0",
+    "@testing-library/react": "^14.2.1",
+    "@types/react": "^18.2.40",
+    "@types/jest": "^29.5.12",
+    "typescript": "^5.4.5",
+    "rollup": "^3.29.4",
+    "rollup-plugin-typescript2": "^0.35.0",
+    "rollup-plugin-dts": "^5.3.0"
   },
   "publishConfig": {
     "access": "public"

@@ -52,6 +52,7 @@
     "@storybook/test": "^8.6.12",
     "@types/css-modules": "^1.0.5",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "babel-jest": "^29.7.0",
     "babel-loader": "^10.0.0",
     "eslint": "^8.30.0",
     "eslint-config-prettier": "^10.1.2",
