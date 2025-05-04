@@ -1,34 +1,6 @@
 {
-  "compilerOptions": {
-    "outDir": "dist",
-    "rootDir": "./",
-    "declaration": true,
-    "declarationDir": "dist",
-    "emitDeclarationOnly": false,
-    "jsx": "react-jsx",
-    "allowJs": true,
-    "module": "ES6",
-    "moduleResolution": "Node",
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "strict": true
-  },
+  "extends": "./tsconfig.base.json",
   "include": [
-    "src"
-  ],
-  "types": [
-    "@storybook/react"
-  ],
-  "files": [],
-  "references": [
-    {
-      "path": "./packages/common"
-    },
-    {
-      "path": "./packages/forms"
-    },
-    {
-      "path": "./packages/product"
-    }
+    "packages/**/*"
   ]
 }

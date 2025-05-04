@@ -1,7 +1,7 @@
 import React from 'react';
 import type { FieldErrors, UseFormReturn } from 'react-hook-form';
 
-import { InputWithLabel } from '../../common/molecules/InputWithLabel/InputWithLabel';
+import { InputWithLabel } from '../../../../../common/src/components/molecules/InputWithLabel/InputWithLabel';
 
 import styles from './FeedbackForm.module.css';
 

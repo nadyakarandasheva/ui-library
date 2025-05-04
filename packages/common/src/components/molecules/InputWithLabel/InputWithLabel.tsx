@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from './InputWithLabel.module.css';
 
 interface InputWithLabelProps extends React.InputHTMLAttributes<HTMLInputElement> {
