@@ -34,12 +34,21 @@ jobs:
       - name: Check if package changed
         id: check_changes
         run: |
-          if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -q "packages/${{ matrix.package }}/"; then
+          BEFORE_SHA=${{ github.event.before }}
+          AFTER_SHA=${{ github.sha }}
+          # fallback на HEAD~1, если BEFORE_SHA невалиден
+          if ! git cat-file -e $BEFORE_SHA^{commit}; then
+            BEFORE_SHA=$(git rev-parse HEAD~1)
+          fi
+      
+          echo "Checking changes between $BEFORE_SHA and $AFTER_SHA..."
+      
+          if git diff --name-only "$BEFORE_SHA" "$AFTER_SHA" | grep -q "packages/${{ matrix.package }}/"; then
             echo "package_changed=true" >> "$GITHUB_OUTPUT"
           else
             echo "package_changed=false" >> "$GITHUB_OUTPUT"
           fi
-
+      
       - name: Run Linter
         if: steps.check_changes.outputs.package_changed == 'true'
         run: |
