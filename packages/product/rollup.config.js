@@ -36,7 +36,6 @@ module.exports = [
           generateScopedName: '[name]__[local]__[hash:base64:5]',
         },
         inject: true,
-        extract: 'index.css',
         minimize: true,
       }),
     ],
