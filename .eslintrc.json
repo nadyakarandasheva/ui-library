@@ -42,6 +42,9 @@
     ]
   },
   "settings": {
+    "react": {
+      "version": "detect" // Добавлено для автодетекта версии React
+    },
     "import/parsers": {
       "@typescript-eslint/parser": [
         ".ts",
