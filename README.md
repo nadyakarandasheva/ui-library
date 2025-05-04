@@ -6,3 +6,15 @@
 1. ```npm run build``` для проверки, что сборка проходит без ошибок </br>
 2. ```npm version patch``` для обновления версии в package.json </br>
 3. ```npm publish``` для публикации новой версии </br>
+
+
+## Архитектура
+Основой для архитектуры библиотеки является:
+- паттерн подключаемых модулей
+- доменно-ориентированное проектирование
+
+
+![Диаграмма без названия-Страница — 7 (1)](https://github.com/user-attachments/assets/82dd5727-c8a7-40a8-b2d2-91b9d9ce91b2)
+
+
+созданные компоненты доступны для просмотра в storybook по ссылке https://nadyakarandasheva.github.io/ui-library/?path=/docs/configure-your-project--docs 
