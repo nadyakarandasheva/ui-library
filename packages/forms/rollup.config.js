@@ -1,14 +1,16 @@
-import typescript from 'rollup-plugin-typescript2';
-import dts from 'rollup-plugin-dts';
-import { nodeResolve } from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
-import postcss from 'rollup-plugin-postcss';
-import path from 'path';
+// rollup.config.js (CommonJS)
+const typescript = require('rollup-plugin-typescript2');
+const dts = require('rollup-plugin-dts').default;
+const { nodeResolve } = require('@rollup/plugin-node-resolve');
+const commonjs = require('@rollup/plugin-commonjs');
+const postcss = require('rollup-plugin-postcss');
+const path = require('path');
 
 const packageDir = __dirname;
 const input = path.resolve(packageDir, 'src/index.ts');
 
-export default [
+/** @type {import('rollup').RollupOptions[]} */
+module.exports = [
   {
     input,
     output: [
