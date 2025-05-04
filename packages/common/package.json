@@ -7,7 +7,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "rollup -c",
+    "build": "rollup -c --verbose",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
     "test": "react-scripts test -all"
   },
