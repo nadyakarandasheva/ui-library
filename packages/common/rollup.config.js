@@ -1,4 +1,4 @@
-// rollup.config.js (CommonJS)
+// rollup.config.js
 const typescript = require('rollup-plugin-typescript2');
 const dts = require('rollup-plugin-dts').default;
 const { nodeResolve } = require('@rollup/plugin-node-resolve');
@@ -9,7 +9,6 @@ const path = require('path');
 const packageDir = __dirname;
 const input = path.resolve(packageDir, 'src/index.ts');
 
-/** @type {import('rollup').RollupOptions[]} */
 module.exports = [
   {
     input,
@@ -33,8 +32,10 @@ module.exports = [
         useTsconfigDeclarationDir: true,
       }),
       postcss({
-        modules: true,
-        extract: true,
+        modules: {
+          generateScopedName: '[name]__[local]__[hash:base64:5]',
+        },
+        extract: 'dist/index.css',
         minimize: true,
       }),
     ],
