@@ -35,7 +35,7 @@ module.exports = [
         modules: {
           generateScopedName: '[name]__[local]__[hash:base64:5]',
         },
-        extract: 'dist/index.css',
+        extract: 'index.css',
         minimize: true,
       }),
     ],
