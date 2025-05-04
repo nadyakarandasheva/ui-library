@@ -40,7 +40,8 @@ jobs:
       - name: Publish common to npm
         run: |
           cd packages/common
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.GH_NPM_TOKEN }}" > ~/.npmrc
+          echo "@nadyakarandasheva:registry=https://npm.pkg.github.com/" > .npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GH_NPM_TOKEN }}" >> .npmrc
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GH_NPM_TOKEN }}
@@ -54,7 +55,8 @@ jobs:
       - name: Publish forms to npm
         run: |
           cd packages/forms
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.GH_NPM_TOKEN }}" > ~/.npmrc
+          echo "@nadyakarandasheva:registry=https://npm.pkg.github.com/" > .npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GH_NPM_TOKEN }}" >> .npmrc
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GH_NPM_TOKEN }}
@@ -68,7 +70,8 @@ jobs:
       - name: Publish product to npm
         run: |
           cd packages/product
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.GH_NPM_TOKEN }}" > ~/.npmrc
+          echo "@nadyakarandasheva:registry=https://npm.pkg.github.com/" > .npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GH_NPM_TOKEN }}" >> .npmrc
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GH_NPM_TOKEN }}
