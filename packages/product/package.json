@@ -1,5 +1,5 @@
 {
-  "name": "@ui-library/product",
+  "name": "@nadyakarandasheva/product",
   "version": "1.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -14,7 +14,7 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "@ui-library/common": "file:../common"
+    "@nadyakarandasheva/common": "file:../common"
   },
   "peerDependencies": {
     "react": "^18.0.0",
