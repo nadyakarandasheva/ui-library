@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "dist",
-    "rootDir": "src",
+    "rootDir": "./",
     "declaration": true,
     "declarationDir": "dist",
     "emitDeclarationOnly": false,
@@ -15,5 +15,17 @@
   },
   "include": [
     "src"
+  ],
+  "files": [],
+  "references": [
+    {
+      "path": "./packages/common"
+    },
+    {
+      "path": "./packages/forms"
+    },
+    {
+      "path": "./packages/product"
+    }
   ]
 }

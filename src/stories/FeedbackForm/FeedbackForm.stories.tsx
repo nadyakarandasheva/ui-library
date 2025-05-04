@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useForm } from 'react-hook-form';
-import { FeedbackForm } from '../../components/features/FeedbackForm/FeedbackForm';
+import { FeedbackForm } from '../../../packages/forms/src/components/organisms/FeedbackForm/FeedbackForm';
 
 interface FeedbackFormData {
   name: string;
