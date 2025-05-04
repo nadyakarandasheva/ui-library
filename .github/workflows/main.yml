@@ -15,6 +15,10 @@ jobs:
   release:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        package: [common, forms, product]
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -25,79 +29,29 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-          registry-url: https://npm.pkg.github.com/
 
-      - name: Install Root Dependencies
+      - name: Install Dependencies
         run: npm install
 
-      # === COMMON ===
-      - name: Lint common
+      - name: Lint
         run: |
-          cd packages/common
+          cd packages/${{ matrix.package }}
           npm run lint
 
-      - name: Test common
+      - name: Test
         run: |
-          cd packages/common
+          cd packages/${{ matrix.package }}
           npm run test
 
-      - name: Build common
+      - name: Build
         run: |
-          cd packages/common
+          cd packages/${{ matrix.package }}
           npm run build
 
-      - name: Publish common
-        if: github.ref == 'refs/heads/develop'
+      - name: Publish to GitHub Packages
         run: |
-          cd packages/common
-          npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GH_NPM_TOKEN }}
-
-      # === FORMS ===
-      - name: Lint forms
-        run: |
-          cd packages/forms
-          npm run lint
-
-      - name: Test forms
-        run: |
-          cd packages/forms
-          npm run test
-
-      - name: Build forms
-        run: |
-          cd packages/forms
-          npm run build
-
-      - name: Publish forms
-        if: github.ref == 'refs/heads/develop'
-        run: |
-          cd packages/forms
-          npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GH_NPM_TOKEN }}
-
-      # === PRODUCT ===
-      - name: Lint product
-        run: |
-          cd packages/product
-          npm run lint
-
-      - name: Test product
-        run: |
-          cd packages/product
-          npm run test
-
-      - name: Build product
-        run: |
-          cd packages/product
-          npm run build
-
-      - name: Publish product
-        if: github.ref == 'refs/heads/develop'
-        run: |
-          cd packages/product
+          cd packages/${{ matrix.package }}
+          npm config set //npm.pkg.github.com/:_authToken=${{ secrets.GH_NPM_TOKEN }}
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GH_NPM_TOKEN }}
@@ -124,7 +78,7 @@ jobs:
         if: github.ref == 'refs/heads/develop'
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GH_NPM_TOKEN }}
           publish_dir: ./storybook-static
           publish_branch: gh-pages
           keep_files: true
