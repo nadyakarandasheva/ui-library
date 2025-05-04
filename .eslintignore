@@ -1,2 +1,5 @@
 setupProxy.js
 plopfile.js
+dist/
+node_modules/
+src/__build-entry.ts
