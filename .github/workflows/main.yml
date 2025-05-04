@@ -8,10 +8,6 @@ on:
     branches:
       - develop
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: false
-
 permissions:
   contents: write
 
@@ -19,49 +15,89 @@ jobs:
   release:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        package: [common, forms, product]
-
     steps:
-      - name: 📥 Checkout Repository
+      - name: Checkout Repository
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - name: 🧰 Setup Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
-          registry-url: 'https://npm.pkg.github.com'
+          registry-url: https://npm.pkg.github.com/
 
-      - name: 📦 Install Dependencies
+      - name: Install Root Dependencies
         run: npm install
 
-      - name: 🔍 Lint
+      # === COMMON ===
+      - name: Lint common
         run: |
-          cd packages/${{ matrix.package }}
-          echo "🔍 Running lint for ${{ matrix.package }}"
+          cd packages/common
           npm run lint
 
-      - name: 🧪 Run Tests
+      - name: Test common
         run: |
-          cd packages/${{ matrix.package }}
-          echo "🧪 Running tests for ${{ matrix.package }}"
+          cd packages/common
           npm run test
 
-      - name: 🏗 Build Package
+      - name: Build common
         run: |
-          cd packages/${{ matrix.package }}
-          echo "🏗 Building ${{ matrix.package }}"
+          cd packages/common
           npm run build
 
-      - name: 🚀 Publish to GitHub Packages
+      - name: Publish common
         if: github.ref == 'refs/heads/develop'
         run: |
-          cd packages/${{ matrix.package }}
-          echo "🚀 Publishing ${{ matrix.package }}"
-          npm config set //npm.pkg.github.com/:_authToken=${{ secrets.GH_NPM_TOKEN }}
+          cd packages/common
+          npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GH_NPM_TOKEN }}
+
+      # === FORMS ===
+      - name: Lint forms
+        run: |
+          cd packages/forms
+          npm run lint
+
+      - name: Test forms
+        run: |
+          cd packages/forms
+          npm run test
+
+      - name: Build forms
+        run: |
+          cd packages/forms
+          npm run build
+
+      - name: Publish forms
+        if: github.ref == 'refs/heads/develop'
+        run: |
+          cd packages/forms
+          npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GH_NPM_TOKEN }}
+
+      # === PRODUCT ===
+      - name: Lint product
+        run: |
+          cd packages/product
+          npm run lint
+
+      - name: Test product
+        run: |
+          cd packages/product
+          npm run test
+
+      - name: Build product
+        run: |
+          cd packages/product
+          npm run build
+
+      - name: Publish product
+        if: github.ref == 'refs/heads/develop'
+        run: |
+          cd packages/product
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GH_NPM_TOKEN }}
@@ -70,25 +106,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📥 Checkout Repository
+      - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: 🧰 Setup Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: 📦 Install Dependencies
+      - name: Install Dependencies
         run: npm install
 
-      - name: 🏗 Build Storybook
+      - name: Build Storybook
         run: npm run build-storybook
 
-      - name: 🌍 Deploy Storybook to GitHub Pages
+      - name: Deploy Storybook to GitHub Pages
         if: github.ref == 'refs/heads/develop'
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GH_NPM_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./storybook-static
           publish_branch: gh-pages
           keep_files: true
