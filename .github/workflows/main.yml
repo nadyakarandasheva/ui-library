@@ -22,6 +22,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # <-- получаем всю историю
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -31,24 +33,25 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Check if package changed
+      - name: Detect if package changed
         id: check_changes
         run: |
-          BEFORE_SHA=${{ github.event.before }}
-          AFTER_SHA=${{ github.sha }}
-          # fallback на HEAD~1, если BEFORE_SHA невалиден
+          BEFORE_SHA="${{ github.event.before }}"
+          AFTER_SHA="${{ github.sha }}"
+
+          # fallback для первого коммита
           if ! git cat-file -e $BEFORE_SHA^{commit}; then
-            BEFORE_SHA=$(git rev-parse HEAD~1)
+            echo "No valid before SHA, assuming all packages changed"
+            echo "package_changed=true" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
-      
-          echo "Checking changes between $BEFORE_SHA and $AFTER_SHA..."
-      
+
           if git diff --name-only "$BEFORE_SHA" "$AFTER_SHA" | grep -q "packages/${{ matrix.package }}/"; then
             echo "package_changed=true" >> "$GITHUB_OUTPUT"
           else
             echo "package_changed=false" >> "$GITHUB_OUTPUT"
           fi
-      
+
       - name: Run Linter
         if: steps.check_changes.outputs.package_changed == 'true'
         run: |
@@ -61,13 +64,13 @@ jobs:
           cd packages/${{ matrix.package }}
           npm run test
 
-      - name: Build Library
+      - name: Build Package
         if: steps.check_changes.outputs.package_changed == 'true'
         run: |
           cd packages/${{ matrix.package }}
           npm run build
 
-      - name: Publish Package
+      - name: Publish to npm
         if: steps.check_changes.outputs.package_changed == 'true' && github.ref == 'refs/heads/develop'
         run: |
           cd packages/${{ matrix.package }}
