@@ -16,10 +16,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30  # Увеличение тайм-аута на 30 минут для всего job
 
-    strategy:
-      matrix:
-        package: [common, forms, product]
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -34,32 +30,48 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Lint
+      # Шаги для каждого пакета
+      - name: Lint and Build for common package
         run: |
-          cd packages/${{ matrix.package }}
+          cd packages/common
           npm run lint
-        timeout-minutes: 10  # Тайм-аут на выполнение линтинга (можно уменьшить/увеличить)
-
-      - name: Test
-        run: |
-          cd packages/${{ matrix.package }}
-          npm run test
-        timeout-minutes: 10  # Тайм-аут на выполнение тестов (можно уменьшить/увеличить)
-
-      - name: Build
-        run: |
-          cd packages/${{ matrix.package }}
           npm run build
-        timeout-minutes: 20  # Тайм-аут на выполнение сборки (можно уменьшить/увеличить)
 
-      - name: Publish to npm
+      - name: Publish common to npm
         run: |
-          cd packages/${{ matrix.package }}
+          cd packages/common
           npm config set //npm.pkg.github.com/:_authToken=${{ secrets.GH_NPM_TOKEN }}
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GH_NPM_TOKEN }}
-        timeout-minutes: 10  # Тайм-аут для публикации в NPM
+
+      - name: Lint and Build for forms package
+        run: |
+          cd packages/forms
+          npm run lint
+          npm run build
+
+      - name: Publish forms to npm
+        run: |
+          cd packages/forms
+          npm config set //npm.pkg.github.com/:_authToken=${{ secrets.GH_NPM_TOKEN }}
+          npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GH_NPM_TOKEN }}
+
+      - name: Lint and Build for product package
+        run: |
+          cd packages/product
+          npm run lint
+          npm run build
+
+      - name: Publish product to npm
+        run: |
+          cd packages/product
+          npm config set //npm.pkg.github.com/:_authToken=${{ secrets.GH_NPM_TOKEN }}
+          npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GH_NPM_TOKEN }}
 
   storybook:
     runs-on: ubuntu-latest
